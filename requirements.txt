@@ -1,0 +1,10 @@
+# Deneylerin çalıştırıldığı sürümler (Python 3.13.18, CPU)
+torch==2.15.0
+scikit-learn==1.9.1
+pandas==3.0.5
+numpy==2.5.3
+scipy==1.18.1
+matplotlib==3.11.2
+joblib==1.6.0
+jupyter
+nbconvert

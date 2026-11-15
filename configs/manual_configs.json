@@ -1,0 +1,108 @@
+{
+  "note": "Dış CV sonuçları görülmeden önce sabitlendi. Tek-faktör kontrollü.",
+  "candidates": [
+    {
+      "code": "M1",
+      "purpose": "Temel manuel konfigürasyon",
+      "optimizer": "adamw",
+      "hidden": [
+        32
+      ],
+      "scaler": "standard",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": true,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    },
+    {
+      "code": "M2",
+      "purpose": "Optimizer etkisi (AdamW -> Adam)",
+      "optimizer": "adam",
+      "hidden": [
+        32
+      ],
+      "scaler": "standard",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": true,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    },
+    {
+      "code": "M3",
+      "purpose": "Optimizer etkisi (AdamW -> SGD+Momentum 0.9)",
+      "optimizer": "sgd",
+      "hidden": [
+        32
+      ],
+      "scaler": "standard",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": true,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    },
+    {
+      "code": "M4",
+      "purpose": "Ölçekleme etkisi (Standard -> MinMax)",
+      "optimizer": "adamw",
+      "hidden": [
+        32
+      ],
+      "scaler": "minmax",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": true,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    },
+    {
+      "code": "M5",
+      "purpose": "Mimari etkisi ((32,) -> (64,32))",
+      "optimizer": "adamw",
+      "hidden": [
+        64,
+        32
+      ],
+      "scaler": "standard",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": true,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    },
+    {
+      "code": "M6",
+      "purpose": "Learning-rate-drop etkisi (scheduler kapalı)",
+      "optimizer": "adamw",
+      "hidden": [
+        32
+      ],
+      "scaler": "standard",
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "scheduler": false,
+      "batch_size": 64,
+      "dropout": 0.0,
+      "activation": "relu",
+      "clipping": false,
+      "unknown": "category"
+    }
+  ]
+}

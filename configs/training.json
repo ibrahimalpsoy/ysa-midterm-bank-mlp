@@ -1,0 +1,62 @@
+{
+  "base_seed": 31066,
+  "seed_formula": "son 5 hane (29040) + 2026",
+  "derived_seeds": {
+    "python": 31066,
+    "numpy": 31067,
+    "torch": 31068,
+    "split": 31069,
+    "outer_cv": 31070,
+    "inner_cv": 31071,
+    "random_search": 31072,
+    "early_stop_split": 31073,
+    "bootstrap": 31074
+  },
+  "final_torch_seeds": [
+    31068,
+    31166,
+    31266
+  ],
+  "primary_torch_seed": 31068,
+  "test_size": 0.2,
+  "outer_folds": 3,
+  "inner_folds": 3,
+  "early_stop_monitor_fraction": 0.15,
+  "max_epochs": 150,
+  "early_stopping": {
+    "monitor": "internal validation BCE loss",
+    "mode": "min",
+    "patience": 15,
+    "restore_best_weights": true,
+    "min_delta": 1e-06
+  },
+  "lr_scheduler": {
+    "type": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 5,
+    "min_lr": 1e-05,
+    "step": "her epoch sonunda early-stop alt kümesi BCE kaybı ile"
+  },
+  "loss": "BCEWithLogitsLoss (tek logit çıkış, olasılık = sigmoid)",
+  "hp_selection_metric": "inner CV average_precision_score (AP)",
+  "selection_rule": "en yüksek iç CV mean AP; eşitlikte düşük SD; sonra düşük kod sırası",
+  "final_method_rule": "tam development iç CV'de en yüksek mean AP veren yöntemin (manuel/otomatik) seçtiği aday",
+  "threshold": 0.5,
+  "threshold_search": false,
+  "sgd_momentum": 0.9,
+  "preprocessing_fixed_rules": {
+    "drop": [
+      "duration"
+    ],
+    "pdays": "999 -> prev_contacted=0 göstergesi + pdays NaN -> kat-içi median",
+    "categorical": "OneHotEncoder(handle_unknown='ignore'); 'unknown' ayrı kategori",
+    "numeric_imputation": "median (kat-içi)",
+    "clipping": "kapalı veya kat-içi %1-%99 yüzdelik kırpma"
+  },
+  "bootstrap": {
+    "n": 1000,
+    "seed": 31074,
+    "ci": "percentile 95%"
+  }
+}

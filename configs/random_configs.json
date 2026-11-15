@@ -1,0 +1,109 @@
+{
+  "note": "ParameterSampler, seed=31072; her optimizer için 2 aday; nested CV öncesi sabitlendi.",
+  "candidates": [
+    {
+      "code": "R1",
+      "purpose": "Random search (sgd)",
+      "optimizer": "sgd",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "tanh",
+      "batch_size": 64,
+      "clipping": false,
+      "dropout": 0.0,
+      "hidden": [
+        32
+      ],
+      "lr": 0.0037258021437890283,
+      "scaler": "robust",
+      "weight_decay": 1e-05
+    },
+    {
+      "code": "R2",
+      "purpose": "Random search (sgd)",
+      "optimizer": "sgd",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "relu",
+      "batch_size": 64,
+      "clipping": false,
+      "dropout": 0.2,
+      "hidden": [
+        32
+      ],
+      "lr": 0.003363156392407665,
+      "scaler": "minmax",
+      "weight_decay": 0.0
+    },
+    {
+      "code": "R3",
+      "purpose": "Random search (adam)",
+      "optimizer": "adam",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "relu",
+      "batch_size": 32,
+      "clipping": true,
+      "dropout": 0.0,
+      "hidden": [
+        16
+      ],
+      "lr": 0.008860654567282725,
+      "scaler": "robust",
+      "weight_decay": 0.0001
+    },
+    {
+      "code": "R4",
+      "purpose": "Random search (adam)",
+      "optimizer": "adam",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "tanh",
+      "batch_size": 32,
+      "clipping": true,
+      "dropout": 0.0,
+      "hidden": [
+        64,
+        32
+      ],
+      "lr": 0.002154229066851651,
+      "scaler": "standard",
+      "weight_decay": 0.0001
+    },
+    {
+      "code": "R5",
+      "purpose": "Random search (adamw)",
+      "optimizer": "adamw",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "tanh",
+      "batch_size": 32,
+      "clipping": false,
+      "dropout": 0.2,
+      "hidden": [
+        16
+      ],
+      "lr": 0.0003711806663886465,
+      "scaler": "standard",
+      "weight_decay": 0.0
+    },
+    {
+      "code": "R6",
+      "purpose": "Random search (adamw)",
+      "optimizer": "adamw",
+      "scheduler": true,
+      "unknown": "category",
+      "activation": "relu",
+      "batch_size": 128,
+      "clipping": true,
+      "dropout": 0.0,
+      "hidden": [
+        128,
+        64
+      ],
+      "lr": 0.0018162928195232769,
+      "scaler": "standard",
+      "weight_decay": 0.0
+    }
+  ]
+}
