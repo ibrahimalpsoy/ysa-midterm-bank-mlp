@@ -1,0 +1,8 @@
+{
+  "raw_exact_duplicates": 0,
+  "model_input_exact_duplicates_with_target": 19,
+  "model_input_feature_duplicates": 20,
+  "feature_groups_with_conflicting_labels": 1,
+  "n_feature_groups_size_gt1": 20,
+  "test_rows_with_identical_feature_vector_in_dev": 5
+}

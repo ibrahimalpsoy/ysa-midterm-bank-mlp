@@ -1,0 +1,8 @@
+{
+  "primary_model": "mlp_proba_seed31068",
+  "primary_seed": 31068,
+  "final_code": "R5",
+  "threshold": 0.5,
+  "n_test": 824,
+  "note": "Etiket i\u00e7ermez. Bu dosya ayr\u0131 commit ile kilitlendikten sonra test metrikleri hesaplan\u0131r."
+}

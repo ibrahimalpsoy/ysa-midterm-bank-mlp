@@ -1,0 +1,11 @@
+feature,level,count,pos_rate
+poutcome,failure,357,0.157
+poutcome,nonexistent,2825,0.082
+poutcome,success,113,0.637
+contact,cellular,2126,0.139
+contact,telephone,1169,0.056
+default,no,2664,0.121
+default,unknown,630,0.062
+default,yes,1,0.0
+prev_contacted (pdays≠999),no,3167,0.089
+prev_contacted (pdays≠999),yes,128,0.617
