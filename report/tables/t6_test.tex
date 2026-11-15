@@ -1,0 +1,11 @@
+\begin{tabular}{lrrrrrrrrrr}\toprule
+Model & AP & ROC-AUC & Acc. & Prec. & Sens. & Spec. & F1 & Bal.Acc. & Brier & TP/FP/TN/FN \\\midrule
+MLP R5 (seed 31068) & 0.440 & 0.784 & 0.902 & 0.645 & 0.222 & 0.985 & 0.331 & 0.604 & 0.078 & 20/11/723/70 \\
+LogisticRegression & 0.437 & 0.793 & 0.900 & 0.633 & 0.211 & 0.985 & 0.317 & 0.598 & 0.078 & 19/11/723/71 \\
+Dummy(prior) & 0.109 & 0.500 & 0.891 & 0.000 & 0.000 & 1.000 & 0.000 & 0.500 & 0.097 & 0/0/734/90 \\
+\midrule
+\multicolumn{11}{l}{\textit{Bootstrap \%95 yüzdelik güven aralıkları (1.000 tekrar)}} \\
+\multicolumn{11}{l}{MLP R5 (seed 31068): AP 0.440 [0.336, 0.561];\ ROC-AUC 0.784 [0.727, 0.843];\ F1 0.331 [0.213, 0.433]} \\
+\multicolumn{11}{l}{LogisticRegression: AP 0.437 [0.339, 0.563];\ ROC-AUC 0.793 [0.736, 0.850];\ F1 0.317 [0.210, 0.428]} \\
+\multicolumn{11}{l}{Eşleştirilmiş bootstrap fark (MLP $-$ LR): AP +0.0027 [-0.0204, +0.0225];\ ROC\_AUC -0.0093 [-0.0317, +0.0124]} \\
+\bottomrule\end{tabular}

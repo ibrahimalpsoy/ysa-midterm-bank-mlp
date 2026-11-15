@@ -1,0 +1,10 @@
+\begin{tabular}{l l r r r r r r r}\toprule
+Kod & Konfigürasyon & Param. & \multicolumn{4}{c}{İç CV AP (mean $\pm$ SD, 3 iç kat)} & En iyi ep. & Süre (s) \\
+\cmidrule(lr){4-7} & & & Dış kat 1 & Dış kat 2 & Dış kat 3 & Tam dev. & (tam dev.) & (tam dev.) \\\midrule
+R1 & {\scriptsize sgd, (32,), tanh, lr=0.0037, wd=1e-05, bs=64, robust, do=0, clip=yok, sch=açık} & 2081 & 0.449 $\pm$ 0.093 & 0.394 $\pm$ 0.059 & 0.356 $\pm$ 0.051 & 0.432 $\pm$ 0.021 & 54.0 & 1.34 \\
+R2 & {\scriptsize sgd, (32,), relu, lr=0.0034, wd=0, bs=64, minmax, do=0.2, clip=yok, sch=açık} & 2081 & 0.458 $\pm$ 0.103 & 0.367 $\pm$ 0.039 & 0.380 $\pm$ 0.042 & 0.419 $\pm$ 0.019 & 83.7 & 2.26 \\
+R3 & {\scriptsize adam, (16,), relu, lr=0.0089, wd=0.0001, bs=32, robust, do=0, clip=var, sch=açık} & 1041 & 0.427 $\pm$ 0.079 & 0.394 $\pm$ 0.053 & 0.367 $\pm$ 0.051 & 0.401 $\pm$ 0.029 & 5.3 & 1.07 \\
+R4 & {\scriptsize adam, (64, 32), tanh, lr=0.0022, wd=0.0001, bs=32, standard, do=0, clip=var, sch=açık} & 6209 & 0.457 $\pm$ 0.118 & 0.377 $\pm$ 0.065 & 0.400 $\pm$ 0.047 & 0.423 $\pm$ 0.035 & 4.7 & 1.46 \\
+R5 & {\scriptsize adamw, (16,), tanh, lr=0.00037, wd=0, bs=32, standard, do=0.2, clip=yok, sch=açık} & 1041 & 0.467 $\pm$ 0.103 & 0.393 $\pm$ 0.063 & 0.379 $\pm$ 0.049 & 0.437 $\pm$ 0.026 & 32.0 & 2.58 \\
+R6 & {\scriptsize adamw, (128, 64), relu, lr=0.0018, wd=0, bs=128, standard, do=0, clip=var, sch=açık} & 16513 & 0.461 $\pm$ 0.093 & 0.393 $\pm$ 0.061 & 0.387 $\pm$ 0.036 & 0.409 $\pm$ 0.039 & 5.0 & 0.53 \\
+\bottomrule\end{tabular}
