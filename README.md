@@ -1,66 +1,70 @@
-# MLP ile Sınıflandırma: EDA, Ön İşleme, Hiperparametre Optimizasyonu ve Nested Cross-Validation
+# Yapay Sinir Ağları Ara Sınav Projesi
 
-Yapay Sinir Ağları dersi, yüksek lisans ara sınav projesi. İkili sınıflandırma problemi UCI Bank Marketing veri setinin
-`bank-additional.csv` dosyası (4.119 gözlem, 20 girdi) üzerinde ele alınır. Model, PyTorch ile yazılmış bir MLP'dir.
+İbrahim Alpsoy, 254329040
+Ders: Yapay Sinir Ağları (Doç. Dr. Gökalp Tulum)
 
-- **Hedef:** `y` (yes = 1, no = 0). **`duration` tüm modellerden çıkarılmıştır** (görüşme öncesinde bilinmez).
-- **Birincil metrik:** Average Precision (AP, `average_precision_score`).
-- **Protokol:** %80 development / %20 bağımsız test. Development içinde 3×3 nested stratified CV kullanılır.
-  Manuel (M1–M6) ve otomatik (R1–R6, random search) adaylar aynı iç katlarda değerlendirilir. Test tahminleri ayrı bir commit ile kilitlenir.
+Bu projede UCI Bank Marketing veri setindeki bank-additional.csv dosyasını kullanarak bir müşterinin vadeli mevduata abone olup olmayacağını PyTorch ile yazdığım bir MLP modeliyle tahmin etmeye çalıştım. Hiperparametreleri nested cross validation ile seçtim. 6 manuel ve 6 random search denemesi yaptım, sonra en iyi modeli ayırdığım test verisinde denedim.
 
-## Seed politikası
-Temel seed = öğrenci numarasının son 5 hanesi + 2026 = **29040 + 2026 = 31066**. Alt seed'ler sabit ofsetlerle türetilir
-(`src/config.py`, `configs/training.json`):
-
-| Amaç | Seed |
-|---|---|
-| Python `random` | 31066 |
-| NumPy | 31067 |
-| PyTorch (ağırlık başlangıcı, birincil) | 31068 |
-| Dev/test bölünmesi | 31069 |
-| Outer CV | 31070 |
-| Inner CV | 31071 |
-| Random search (ParameterSampler) | 31072 |
-| Early-stop alt bölünmesi | 31073 |
-| Bootstrap | 31074 |
-| Seed kararlılığı (3 ağırlık seed'i) | 31068 (birincil), 31166, 31266 |
+Raporun tamamı report.pdf dosyasında.
 
 ## Veri
-Ham veri repoya eklenmemiştir. Resmî kaynak: UCI Machine Learning Repository, *Bank Marketing*
-(Moro, Rita ve Cortez, 2014), https://archive.ics.uci.edu/dataset/222/bank+marketing, DOI: 10.24432/C5K306.
-`01_eda.ipynb` dosyayı bulamazsa resmî zip'i indirir ve yalnızca `bank-additional/bank-additional.csv` dosyasını `data/` klasörüne çıkarır.
-Manuel kullanım için bu dosyayı `data/bank-additional.csv` yoluna koymanız yeterlidir. Kullanılan dosyanın MD5 değeri: `ee09b855dd692f74099ac5cba74f3e54`.
 
-## Kurulum ve çalıştırma
+Veri seti repoda yok, buradan indirilebilir:
+https://archive.ics.uci.edu/dataset/222/bank+marketing (DOI: 10.24432/C5K306)
+
+Zip dosyasının içindeki bank-additional.zip içinde bulunan bank-additional.csv dosyasını data klasörüne koymak yeterli. 01 notebook dosyayı bulamazsa kendisi indirmeye çalışıyor.
+
+Not: duration sütununu baştan çıkardım çünkü görüşme bitmeden bu değer bilinmiyor.
+
+## Seed
+
+Seed değerini öğrenci numaramın son 5 hanesine 2026 ekleyerek buldum:
+29040 + 2026 = 31066
+
+Diğer seedleri bu sayıya 0, 1, 2 gibi sabit sayılar ekleyerek ürettim (bölünme için 31069, dış CV için 31070, iç CV için 31071 gibi). Hepsi src/config.py ve configs/training.json içinde yazıyor. Final modeli 3 farklı seed ile eğittim: 31068, 31166 ve 31266. Ana seed olarak 31068 kullandım.
+
+## Nasıl çalıştırılır
+
 ```bash
 git clone https://github.com/ibrahimalpsoy/ysa-midterm-bank-mlp.git
 cd ysa-midterm-bank-mlp
 pip install -r requirements.txt
-python -m src.make_configs          # (zaten commit edilmiş) adayları yeniden üretir; 02 notebook birebir eşitliği doğrular
-jupyter nbconvert --to notebook --execute --inplace 01_eda.ipynb
-jupyter nbconvert --to notebook --execute --inplace 02_nested_cv.ipynb
-# -> results/test_predictions_locked.csv ayrı commit ile kilitlenir
-jupyter nbconvert --to notebook --execute --inplace 03_final_test.ipynb
 ```
-**Google Colab:** Notebook'u açın. İlk hücredeki `REPO_URL` repoyu klonlar ve bağımlılıkları kurar. Notebook'ları 01 → 02 → 03 sırasıyla çalıştırın.
-Tüm eğitimler CPU'da yapılır (`torch.set_num_threads(1)`, deterministik algoritmalar), toplam süre birkaç dakikadır.
 
-## Klasör yapısı
-| Yol | İçerik |
-|---|---|
-| `01_eda.ipynb` | Veri doğrulama, kopya kontrolü, stratified split, yalnızca development üzerinde EDA |
-| `02_nested_cv.ipynb` | Fold-local ön işleme, manuel ve otomatik arama, nested CV, nihai seçim, 3 seed ile eğitim, kilitli tahminler |
-| `03_final_test.ipynb` | Kilitli tahminlerle test metrikleri, bootstrap %95 CI, seed kararlılığı, hata analizi, ROC/PR grafikleri |
-| `src/` | `config` (seed/sabitler), `data`, `preprocessing`, `model` (MLP + eğitim), `search` (nested CV), `metrics`, `make_configs` |
-| `configs/` | `training.json`, `search_space.json`, `manual_configs.json`, `random_configs.json`, `hypotheses.md` |
-| `results/` | `dataset_split.csv`, `manual_search_results.csv`, `random_search_results.csv`, `outer_cv_results.csv`, `final_hyperparameters.json`, `test_predictions_locked.csv`, `test_metrics.csv`, `seed_stability_results.csv`, eğitim logları |
-| `figures/` | Raporda kullanılan tüm grafikler (kodla üretilmiştir) |
-| `report.pdf` | Bilimsel teknik rapor |
+Sonra notebookları sırayla çalıştırmak gerekiyor:
 
-## Zaman sıralı deney kaydı (commit sırası)
-1. Kod iskeleti, sabitlenmiş adaylar (`configs/`) ve hipotezler. Nested CV'den önce commit edilir.
-2. EDA çıktıları ve `dataset_split.csv`.
-3. Nested CV sonuçları, nihai konfigürasyon ve **etiketsiz** `test_predictions_locked.csv` (ayrı commit).
-4. Test metrikleri, bootstrap CI, grafikler ve rapor.
+1. 01_eda.ipynb: veriyi okuyup kontrol ediyor, %80 development ve %20 test olarak bölüyor, sadece development üzerinde EDA yapıyor
+2. 02_nested_cv.ipynb: manuel ve random search adaylarını nested CV ile deniyor, final modeli eğitiyor ve test tahminlerini etiketlere bakmadan results/test_predictions_locked.csv dosyasına yazıyor
+3. 03_final_test.ipynb: kilitli tahminlerle test sonuçlarını, bootstrap güven aralıklarını ve grafikleri çıkarıyor
 
-Test etiketleri kamuya açık bir veri setinde bulunduğu için bu sıralama kör test garantisi vermez. Yalnızca zaman sıralı bir deney kaydıdır.
+Colab'da açınca ilk hücre repoyu klonlayıp gerekli paketleri kuruyor. Her şey CPU üzerinde çalışıyor, bende toplam birkaç dakika sürdü.
+
+## Kullandığım sürümler
+
+Python 3.13.18, torch 2.15.0, scikit-learn 1.9.1, pandas 3.0.5, numpy 2.5.3, scipy 1.18.1, matplotlib 3.11.2
+Bilgisayar: 2 çekirdekli Linux, GPU yok
+
+## Klasörler
+
+- src: kodların asıl kısmı (veri okuma, ön işleme, MLP modeli, nested CV, metrikler)
+- configs: arama uzayı, M1-M6 ve R1-R6 adayları, eğitim ayarları ve hipotezlerim. Bunları nested CV çalıştırmadan önce commitledim.
+- results: bölünme dosyası, arama sonuçları, dış CV sonuçları, final model ayarları, kilitli test tahminleri ve test sonuçları
+- figures: raporda kullandığım grafikler
+- report: raporun LaTeX kaynağı ve tabloları sonuç dosyalarından üreten make_tables.py
+
+## Test kilidi hakkında
+
+Test tahminlerini etiketlere bakmadan ayrı bir commit ile kaydettim (d463f75). Test sonuçlarını bu committen sonra hesapladım. Veri seti herkese açık olduğu için bu tam bir kör test sayılmaz ama hangi adımı hangi sırayla yaptığımı gösteriyor.
+
+## Kısaca sonuçlar
+
+- Dış CV AP: manuel arama 0.422 ± 0.061, random search 0.405 ± 0.044, lojistik regresyon 0.414 ± 0.061
+- Seçilen model: R5 (AdamW, 16 nöron, tanh, dropout 0.2)
+- Test AP: 0.440 (%95 güven aralığı 0.336 - 0.561), ROC-AUC: 0.784
+- MLP, lojistik regresyondan belirgin bir şekilde daha iyi çıkmadı. Bu veride duration olmadan çok fazla bilgi kalmıyor gibi görünüyor.
+
+Rapor tekrar üretilmek istenirse:
+```bash
+python report/make_tables.py
+cd report && xelatex report.tex && xelatex report.tex
+```

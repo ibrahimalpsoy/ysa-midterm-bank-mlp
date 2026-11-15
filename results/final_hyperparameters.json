@@ -42,7 +42,7 @@
     "31068": {
       "best_epoch": 20,
       "stopped_epoch": 35,
-      "train_time_s": 0.9277821700000004,
+      "train_time_s": 1.0072683710000092,
       "warnings": [],
       "n_fit": 2800,
       "n_monitor": 495
@@ -50,7 +50,7 @@
     "31166": {
       "best_epoch": 23,
       "stopped_epoch": 38,
-      "train_time_s": 1.0046562189999122,
+      "train_time_s": 1.0223710879999999,
       "warnings": [],
       "n_fit": 2800,
       "n_monitor": 495
@@ -58,7 +58,7 @@
     "31266": {
       "best_epoch": 19,
       "stopped_epoch": 34,
-      "train_time_s": 0.8892622829999937,
+      "train_time_s": 0.8965714020000064,
       "warnings": [],
       "n_fit": 2800,
       "n_monitor": 495
@@ -287,8 +287,8 @@
   "logreg_reference": {
     "preprocessing": "standard, no clipping, unknown=category",
     "C": 1.0,
-    "fit_time_s": 0.04041493800002627,
+    "fit_time_s": 0.04070832600001495,
     "warnings": []
   },
-  "nested_cv_time_s": 33.778114450999965
+  "nested_cv_time_s": 36.539954101000006
 }
